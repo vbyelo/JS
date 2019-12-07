@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JS</title>
+</head>
+
+<body>
+    <h2 id="pracownicy">Pracownicy</h2>
+
+    <script>
+        var p = document.getElementById("pracownicy")
+        var Pracownik = function (imie, nazwisko, wiek, wyplaty, dniWTygodniu, pelnyEtap, plec) {
+            this.imie = imie;
+            this.nazwisko = nazwisko;
+            this.wiek = wiek;
+            this.wyplaty = wyplaty;
+            this.dniWTygodniu = dniWTygodniu;
+            this.pelnyEtap = pelnyEtap;
+            this.plec = plec;
+        }
+
+        Pracownik.prototype.getPensja = function () {
+            var dni = this.dniWTygodniu * 4;
+            var godziny;
+            if (this.pelnyEtap) {
+                godziny = 8;
+            } else {
+                godziny = 4;
+            }
+            return this.wyplaty * dni * godziny;
+        }
+
+        Pracownik.prototype.getInfo = function () {
+            return this.imie + " " + this.nazwisko + " ma pansje " + this.getPensja();
+        }
+
+        var pr1 = ["Halina", "Kowalczyk", 34, 123, 5, true, "k"];
+        var pr2 = ["Anna", "Kowalska", 45, 113, 3, false, "k"];
+
+        var pracownik1 = new Pracownik(...pr1);
+        var pracownik2 = new Pracownik(...pr2);
+
+        var tabLudzi = [pracownik1,
+            pracownik2]
+
+        for (var i in tabLudzi) {
+            p.innerHTML +="<br>"+ tabLudzi[i].getInfo() + "<br>";
+
+        }
+    </script>
+</body>
+
+</html>
