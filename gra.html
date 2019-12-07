@@ -1,0 +1,120 @@
+<!-- michal.sobanski@codeme.pl -->
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>super gra</title>
+        <!-- <script src="scrypt.js"></script> -->
+        <style>
+            body{
+                padding: 0px;
+                margin: 0px;
+
+            }
+            canvas{
+                display: block;
+                border-left: 20px;
+                border-top: 20px;
+                border-bottom: 20px;
+                border-right: 0px;
+                border-color: rgb(18, 100, 25);
+                border-style: solid;
+
+            }
+        </style>
+    </head>
+        
+    <body>
+        <canvas id="canvas">
+
+        </canvas>
+
+        <script>
+            let c = document.getElementById("canvas")
+            var border = 20;
+            c.width = window.innerWidth - border;
+            c.height = window.innerHeight - 2 * border;
+
+            var kontekst = c.getContext("2d");
+            
+            // kontekst.fillStyle = "blue";
+            // kontekst.fillRect(0,0,200,300)
+
+            let pozycja = {x:0,
+                           y:0}
+
+            class Rysownik{
+                narysujProstokat(pozycja, szerokosc, wysokosc, kolor){
+
+                    kontekst.save();
+                    kontekst.translate(-szerokosc/2, -wysokosc/2);
+                    kontekst.fillStyle = kolor;
+                    kontekst.fillRect(pozycja.x,pozycja.y,szerokosc,wysokosc)
+                    kontekst.restore();
+                }
+
+                narysujKolko(pozycja, promien, kolor){
+                    kontekst.beginPath();
+                    kontekst.fillStyle = kolor;
+                    kontekst.arc(pozycja.x,pozycja.y,promien,0, 2 * Math.PI)
+                    kontekst.fill();
+                    kontekst.closePath();
+                }
+            }
+
+            let rysownik = new Rysownik();
+
+            // rysownik.narysujProstokat(pozycja, 400,200,"yellow");
+            // rysownik.narysujKolko(pozycja, 100,"pink");
+
+            class Paletka {
+                constructor(szerokosc, wysokosc, kolor, rysownik){
+
+                    this.szerokosc = szerokosc;
+                    this.wysokosc = wysokosc;
+                    this.kolor = kolor;
+                    this.rysownik = rysownik;
+                    this.pozycja = {x:0,y:0};
+
+                }
+
+                narysujSie(){
+                    console.log(this.szerokosc,
+                    this.wysokosc,
+                    this.kolor,
+                    this.rysownik,
+                    this.pozycja)
+                    this.rysownik.narysujProstokat(this.pozycja,
+                                                    this.szerokosc,
+                                                    this.wysokosc,
+                                                    this.kolor)
+                }
+
+
+            }
+
+            c.addEventListener("mousemove", function(e){
+                paletka.pozycja.x = e.clientX;
+                paletka.pozycja.y = e.clientY;
+                console.log(e.clientY);
+            })
+
+            function reset(){
+                kontekst.clearRect(0,0,c.width,c.height)
+            }
+
+            setInterval(()=>{
+                reset()
+                paletka.narysujSie();
+            },1);
+
+            let paletka = new Paletka(120,100,"red",rysownik);
+            paletka.narysujSie();
+
+        </script>
+
+
+    </body>
+
+</html>

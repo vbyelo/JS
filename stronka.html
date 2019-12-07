@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>JS</title>
+        <!-- <script src="scrypt.js"></script> -->
+    </head>
+        
+    <body>
+        <h2 id="mainTitle">Hello World!</p>
+        <p id="paragraf">
+            Pokoloruj mnie
+        </p>
+        <button id="buttonChangeColor" onclick="pokolorujParagraf()">
+            Zmien kolor
+        </button>
+        
+        <script>
+            var p = document.getElementById("paragraf");
+            // setInterval(function(){p.style.color -= 1},10 )
+
+            // setTimeout(function(){
+            //     p.style.color = "green";
+                
+            // }, 2000);
+            console.log(p)
+
+            var title = document.getElementById("mainTitle");
+
+            var colorButton = document.getElementById("buttonChangeColor");
+            console.log(colorButton)
+
+            colorButton.addEventListener("click",function(){
+                                          var color ='#'+Math.floor(Math.random()*16777215).toString(16);
+                                          title.style.color = color
+                                          if(p.style.color==="black"){
+                                              pokolorujParagraf("red");
+                                          }else{
+                                            pokolorujParagraf("black")
+                                          }
+                                        })
+
+            // var rgbToHex = function (rgb) { 
+            //     var hex = Number(rgb).toString(16);
+            //     if (hex.length < 2) {
+            //         hex = "0" + hex;
+            //     }
+            //     return hex;
+            //     };
+
+            // var fullColorHex = function(r,g,b) {   
+            //     var red = rgbToHex(r);
+            //     var green = rgbToHex(g);
+            //     var blue = rgbToHex(b);
+            //     return red+green+blue;
+            //     };
+
+            function pokolorujParagraf(kolor){
+                p.style.color = kolor;
+            }
+        </script>
+    </body>
+
+</html>

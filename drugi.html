@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JS</title>
+    <script src="scrypt.js"></script>
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <h4>Hello World!</h4>
+
+    <script>
+        var druzyny = ["Lechia", "Legia", "Arka", "Lech"];
+        var gry = ["miners", "Tomb Raider", "GTA", "pasjans"];
+        var liczby = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        function multBy10(array) {
+            // var temp = []
+            // for(var i=0; i<array.length; i++){
+            //     temp.push(array[i]*10)
+            // }
+            // return temp
+            temp = array.slice();
+            temp.forEach(function (v, k) {
+                temp[k] = v * 15
+            })
+            return temp
+
+        }
+
+        function selectOverThreshold(array, prog) {
+            // var temp = []
+            // array.forEach(function(v,k){
+            //     if (v>prog){
+            //         temp.push(v);
+            //     };                    
+            // })
+            // return temp;
+            return array.filter(function (v) { return v > prog; });
+        }
+
+        var liczby3 = liczby.map(function (i) { return i * 12; });
+        var liczby4 = liczby.filter(function (v) { return v > 5; })
+        console.log("liczby3", liczby3)
+        console.log("liczby4", liczby4)
+        console.log("liczby", liczby)
+        console.log('selectOverThreshold', selectOverThreshold(liczby, 5))
+        var nowaTablica = [...druzyny, ...gry];
+        var druzyny2 = [...druzyny];
+        druzyny.push("FC Barcelona");
+        console.log(nowaTablica);
+        console.log(druzyny);
+        console.log(druzyny2);
+        druzyny.splice(1, 1, 1, ...druzyny);
+        console.log(druzyny);
+        console.log(multBy10(liczby));
+
+        var i = 5;
+
+        for (i = 0; i < liczby.length; ++i) {
+            console.log(liczby[i]);
+        }
+        console.log("wartość i jest ${i}", i);
+
+        const STALA = 404;
+        const objekt = {
+            kolor: "czerwony",
+            nazwa: "test"
+        }
+
+        objekt.wymiar = 20
+        objekt.nazwa += "++"
+        console.log(objekt, typeof objekt)
+
+        // objekt = 5
+
+        const Tablica = [1, 2, 3, 4]
+
+        console.log(Tablica)
+        Tablica.push(6)
+        console.log(Tablica)
+
+        const r = 5
+            // r = 4.5
+
+
+
+    </script>
+
+</html>
