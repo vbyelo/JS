@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Warsztat z JS, Niedziela 08 Wrzesniu 2019</title>
+        <!-- <script src="scrypt.js"></script> -->
+        <script>
+            var liczba = 1;
+            var prawda = true;
+            var tablica = [1, 2, 3, 4, "5", 6]
+            // inline comment
+            /*
+                block comment
+            */
+
+            console.log(wywalajAlert)
+            // console.log(wywalajAlert());
+            
+            // wywalajAlert();
+
+            
+            function wywalajAlert(){
+                // wywołanie funkcji
+                alert("alert jest tutaj");
+            }
+
+            function dodaj(a, b){
+                return a + b
+            }
+            
+            var jezd = function(){
+                console.log('brum brum')
+            } 
+
+            var piosenka = "La-La-La gra z radia";
+            var piosenki = ["Radio Gaga",
+                            "Immuento",
+                            "There is an ocean",
+                            ""
+                        ]
+            piosenki.push("blah-blah")
+
+            var graj_muzyke = function(p){
+                // var piosenka = "We Will Rock You"
+                // for (var i=0; i< p.length; i++){
+                //     alert(p[i])
+                // }
+
+                // var counter = 0
+                // while(counter< p.length){
+                //     alert(p[counter] );
+                //     counter ++;
+                //     // if(counter === 10){
+                //     //     break;
+                //     // }
+                // }
+
+                var p1 = p; 
+
+                p1.push("love of my life");
+                
+                p1.forEach(function(v) {
+                    alert(v);   
+                });
+            }
+
+            /*
+            alert("nech będzie tu alert ");
+            alert("nech będzie tu alert znów");
+            alert("nech będzie tu alert znów 2");
+            alert("nech będzie tu alert znów 3");
+            */
+
+            x = 2;
+            var x;
+            var nic = null;
+            var samochod = {"kolor":"czerwony",
+                            "maks_predkosc":400,
+                            "km":150,
+                            jazda:jezd,
+                            graj:graj_muzyke
+                        };
+
+            samochod.kolor = 'niebieski';
+            samochod['maks_predkosc'] = 300;
+            samochod.jazda;
+            samochod.graj(piosenki);
+            
+            console.log(piosenki)
+            console.log(liczba, prawda, tablica) 
+            console.log(typeof liczba)
+            console.log(typeof tablica)
+            // wywalajAlert();
+            console.log(x, typeof x)
+            console.log(nic, typeof nic)
+
+            console.log(samochod, typeof samochod)
+            console.log(dodaj('1', '2'))
+            var wynik = dodaj([1, 4], [2, 3])
+            console.log('length:',wynik.length, 'wynik:',wynik, wynik[0], wynik[1],wynik[2])
+            
+        </script>
+    </head>
+        
+    <body>
+        <h4>Hello World!</h4>
+        
+    </body>
+</html>
