@@ -2,119 +2,126 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>super gra</title>
-        <!-- <script src="scrypt.js"></script> -->
-        <style>
-            body{
-                padding: 0px;
-                margin: 0px;
 
-            }
-            canvas{
-                display: block;
-                border-left: 20px;
-                border-top: 20px;
-                border-bottom: 20px;
-                border-right: 0px;
-                border-color: rgb(18, 100, 25);
-                border-style: solid;
+<head>
+    <meta charset="UTF-8" />
+    <title>super gra</title>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
 
-            }
-        </style>
-    </head>
-        
-    <body>
-        <canvas id="canvas">
+        canvas {
+            display: block;
+            border-left: 20px;
+            border-top: 20px;
+            border-bottom: 20px;
+            border-right: 0px;
+            border-color: rgb(18, 100, 25);
+            border-style: solid;
+        }
+    </style>
+</head>
 
-        </canvas>
+<body>
+    <canvas id="canvas">
 
-        <script>
-            let c = document.getElementById("canvas")
-            var border = 20;
-            c.width = window.innerWidth - border;
-            c.height = window.innerHeight - 2 * border;
+    </canvas>
 
-            var kontekst = c.getContext("2d");
-            
-            // kontekst.fillStyle = "blue";
-            // kontekst.fillRect(0,0,200,300)
+    <script>
+        let c = document.getElementById("canvas")
+        var border = 20;
+        c.width = window.innerWidth - border;
+        c.height = window.innerHeight - 2 * border;
 
-            let pozycja = {x:0,
-                           y:0}
+        var kontekst = c.getContext("2d");
 
-            class Rysownik{
-                narysujProstokat(pozycja, szerokosc, wysokosc, kolor){
+        kontekst.fillStyle = "blue";
+        kontekst.fillRect(0, 0, 200, 300)
 
-                    kontekst.save();
-                    kontekst.translate(-szerokosc/2, -wysokosc/2);
-                    kontekst.fillStyle = kolor;
-                    kontekst.fillRect(pozycja.x,pozycja.y,szerokosc,wysokosc)
-                    kontekst.restore();
-                }
+        let pozycja = {
+            x: 0,
+            y: 0
+        }
 
-                narysujKolko(pozycja, promien, kolor){
-                    kontekst.beginPath();
-                    kontekst.fillStyle = kolor;
-                    kontekst.arc(pozycja.x,pozycja.y,promien,0, 2 * Math.PI)
-                    kontekst.fill();
-                    kontekst.closePath();
-                }
+        let ballXSpeed = 2;
+        let ballYSpeed = 3;
+
+        class Paletka {
+            constructor(szerokosc, wysokosc, kolor, rysownik) {
+
+                this.szerokosc = szerokosc;
+                this.wysokosc = wysokosc;
+                this.kolor = kolor;
+                this.rysownik = rysownik;
+                this.pozycja = { x: 0, y: 0 };
             }
 
-            let rysownik = new Rysownik();
+            narysujSie() {
+                kontekst.save();
+                kontekst.translate(-this.szerokosc / 2, -this.wysokosc / 2);
+                kontekst.fillStyle = this.kolor;
+                kontekst.fillRect(this.pozycja.x, this.pozycja.y, this.szerokosc, this.wysokosc)
+                kontekst.restore();
+            }
+        }
 
-            // rysownik.narysujProstokat(pozycja, 400,200,"yellow");
-            // rysownik.narysujKolko(pozycja, 100,"pink");
-
-            class Paletka {
-                constructor(szerokosc, wysokosc, kolor, rysownik){
-
-                    this.szerokosc = szerokosc;
-                    this.wysokosc = wysokosc;
-                    this.kolor = kolor;
-                    this.rysownik = rysownik;
-                    this.pozycja = {x:0,y:0};
-
-                }
-
-                narysujSie(){
-                    console.log(this.szerokosc,
-                    this.wysokosc,
-                    this.kolor,
-                    this.rysownik,
-                    this.pozycja)
-                    this.rysownik.narysujProstokat(this.pozycja,
-                                                    this.szerokosc,
-                                                    this.wysokosc,
-                                                    this.kolor)
-                }
-
-
+        class Kolko {
+            constructor(promien, kolor, rysownik) {
+                this.promien = promien;
+                this.kolor = kolor;
+                this.rysownik = rysownik;
+                this.pozycja = { x: 100, y: 100 };
             }
 
-            c.addEventListener("mousemove", function(e){
-                paletka.pozycja.x = e.clientX;
-                paletka.pozycja.y = e.clientY;
-                console.log(e.clientY);
-            })
-
-            function reset(){
-                kontekst.clearRect(0,0,c.width,c.height)
+            narysujSie() {
+                kontekst.beginPath();
+                kontekst.fillStyle = this.kolor;
+                kontekst.arc(this.pozycja.x, this.pozycja.y, this.promien, 0, 2 * Math.PI)
+                kontekst.fill();
+                kontekst.closePath();
             }
+        }
 
-            setInterval(()=>{
-                reset()
-                paletka.narysujSie();
-            },1);
+        let paletka = new Paletka(border, 100, "red");
+        let kolko = new Kolko(20, "red");
 
-            let paletka = new Paletka(120,100,"red",rysownik);
+        c.addEventListener("mousemove", function (e) {
+            paletka.pozycja.x = c.width;
+            paletka.pozycja.y = e.clientY;
+        })
+
+        function reset() {
+            kontekst.clearRect(0, 0, c.width, c.height)
+        }
+
+        setInterval(() => {
+            reset()
             paletka.narysujSie();
 
-        </script>
+            kolko.pozycja.x += ballXSpeed;
+            kolko.pozycja.y += ballYSpeed;
+            if (kolko.pozycja.x - kolko.promien < 0) {
+                ballXSpeed = -ballXSpeed; // Reflect along normal
+                kolko.pozycja.x = kolko.promien; // Re-position the ball at the edge
+            } else if (kolko.pozycja.x + kolko.promien > c.width) {
+                ballXSpeed = -ballXSpeed;
+                kolko.pozycja.x = c.width - kolko.promien;
+            }
 
+            if (kolko.pozycja.y - kolko.promien < 0) {
+                ballYSpeed = -ballYSpeed; // Reflect along normal
+                kolko.pozycja.y = kolko.promien; // Re-position the ball at the edge
+            } else if (kolko.pozycja.y + kolko.promien > c.height) {
+                ballYSpeed = -ballYSpeed;
+                kolko.pozycja.y = c.height - kolko.promien;
+            }
 
-    </body>
+            kolko.narysujSie();
+        }, 1);
+
+    </script>
+</body>
 
 </html>
