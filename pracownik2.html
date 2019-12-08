@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JS</title>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        p {
+            color: grey;
+        }
+    </style>
+
+</head>
+
+<body>
+    <p>Pracownicy</p>
+    <p id="pracownicy"></p>
+
+    <select id="plec" onchange="selectPlec()">
+        <option value="m" selected="selected">mężczyzna</option>
+        <option value="k">kobieta</option>
+    </select>
+
+    <div id="table"></div>
+
+    <script>
+        var p = document.getElementById("table");
+
+        var e = document.getElementById("plec");
+
+        var Pracownik = function (stanowisko, imie, nazwisko, wiek, wyplaty, dniWTygodniu, pelnyEtap, plec) {
+            this.stanowisko = stanowisko;
+            this.imie = imie;
+            this.nazwisko = nazwisko;
+            this.wiek = wiek;
+            this.wyplaty = wyplaty;
+            this.dniWTygodniu = dniWTygodniu;
+            this.pelnyEtap = pelnyEtap;
+            this.plec = plec;
+        }
+
+        Pracownik.prototype.getPensja = function () {
+            var dni = this.dniWTygodniu * 4;
+            var godziny;
+            if (this.pelnyEtap) {
+                godziny = 8;
+            } else {
+                godziny = 4;
+            }
+            return this.wyplaty * dni * godziny;
+        }
+
+        Pracownik.prototype.getInfo = function () {
+            return this.imie + " " + this.nazwisko + " ma pansje " + this.getPensja();
+        }
+
+        Pracownik.prototype.getTableRow = function () {
+            return "<tr> \n<td>" + this.imie + "</td>\n<td>" + this.nazwisko + "</td>\n<td>" + this.getPensja() + "</td>\n</tr>";
+        }
+
+        var pr1 = ["dyrektor", "Halina", "Kowalczyk", 34, 123, 5, true, "k"];
+        var pr2 = ["asystent", "Anna", "Kowalska", 45, 113, 3, false, "k"];
+        var pr3 = ["asystent", "Radek", "Barski", 25, 103, 4, false, "m"];
+        var pr4 = ["asystent", "Michał", "Bonarski", 43, 113, 1, false, "m"];
+        var pr5 = ["asystent", "Jakub", "Lewandowski", 28, 103, 4, false, "m"];
+
+        var pracownik1 = new Pracownik(...pr1);
+        var pracownik2 = new Pracownik(...pr2);
+        var pracownik3 = new Pracownik(...pr3);
+        var pracownik4 = new Pracownik(...pr4);
+        var pracownik5 = new Pracownik(...pr5);
+
+        var pracownicy = [pracownik1, pracownik2, pracownik3, pracownik4, pracownik5];
+
+        function selectPlec() {
+            var value = e.options[e.selectedIndex].value;
+            var tabLudzi = pracownicy.filter(pr => pr.plec === value);
+            makeTable(tabLudzi);
+
+        }
+
+        function makeTable(tablePrac) {
+            var text = "<table style=&quotwidth:100%&quot>";
+            text += "<tr>\n <th>Imie</th> \n<th>Nazwisko</th>\n <th>Pensja</th>\n </tr>";
+            for (var i in tablePrac) {
+                text += tablePrac[i].getTableRow();
+            }
+
+            text += "</table>";
+            p.innerHTML = text;
+        }
+        makeTable(pracownicy);
+
+    </script>
+
+
+</body>
+
+</html>
