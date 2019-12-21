@@ -4,7 +4,7 @@
     Format numeru jest ###-###-###.
 
     <script>
-        var re = /(?:\d{3}|\(\d{3}\))([-\/\.])\d{3}\1\d{3}/;
+        var re =  /\d{3}-\d{3}-\d{3}/;
         function testInfo(phoneInput) {
             var OK = re.exec(phoneInput.value);
             if (!OK) {
